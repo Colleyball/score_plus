@@ -263,24 +263,12 @@ Page({
       })
     }.bind(this), 1000)
   },
-  getA:function(e){
-    this.setData({
-      Aname:e.detail.value
-    })
-  },
-  getB: function (e) {
-    this.setData({
-      Bname: e.detail.value
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this
     var MatchDetail = []
-    MatchDetail.push('00')
-    MatchDetail.push('00')
     wx.setStorage({
       key: 'MatchDetail',
       data: MatchDetail,

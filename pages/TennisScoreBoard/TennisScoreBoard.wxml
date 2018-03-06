@@ -40,12 +40,16 @@
     </view>
   </view>
   <view class="matchdetail">
-    <view class="matchdetail-socre" >
-      <block wx:for="{{ScoreDetail}}">
-        <view class="matchdetail-A" wx:if="{{index%2==0}}">{{item}}</view>
-        <view class="matchdetail-B" wx:if="{{index%2!=0}}">{{item}}</view>
-      </block>
-    </view>
+    <block wx:for="{{ScoreDetail}}" wx:key="{{index}}">
+      <view class="matchdetail-socre" wx:if="{{item[0]==0||item[0]==1||item[0]==2||item[0]==3||item[0]==4||item[0]==5||item[0]==6||item[0]==7||item[0]==8||item[0]==9||item[0]==10}}" style='font-size:35rpx;color:#EAFA11'>
+        <view class="matchdetail-A">{{item[0]}}</view>
+        <view class="matchdetail-B">{{item[1]}}</view>
+      </view>
+      <view class="matchdetail-socre" wx:else>
+        <view class="matchdetail-A">{{item[0]}}</view>
+        <view class="matchdetail-B">{{item[1]}}</view>
+      </view>
+    </block>
   </view>
   <view class="control">
     <view class="control-area">
