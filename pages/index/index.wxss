@@ -1,0 +1,28 @@
+.item{
+  width:680rpx;
+  height:160rpx;
+  line-height: 160rpx;
+  background: black;
+  margin-top:40rpx;
+  display: flex;
+  flex-direction: row;
+  border-radius: 80rpx
+}
+
+.item-image {
+  width: 140rpx;
+  height: 140rpx;
+  background: yellow;
+  border-radius: 80rpx;
+  margin-left:10rpx;
+  margin-top:10rpx;
+}
+
+.item-text {
+  width: 680rpx;
+  height: 160rpx;
+  line-height: 160rpx;
+  margin-left:-150rpx;
+  color: white;
+  text-align: center
+}

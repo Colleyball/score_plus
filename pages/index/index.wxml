@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="item">
+    <view class="item-image"></view>
+    <view class="item-text">篮球</view>
+  </view>
+  <view class="item">排球
+  </view>
+  <view class="item" bindtap='bindTennis'>网球
+  </view>
+</view>

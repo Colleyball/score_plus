@@ -1,0 +1,62 @@
+<view class="contain">
+  <view class="teamname">
+    <view class="teamA"> 
+      <input placeholder-style="color:white" bindinput="getA" placeholder="Player1" value="{{Aname}}" maxlength="10" name="nameA" style="height: 70rpx;line-height: 70rpx"/>
+    </view>
+    <view class="vs">Vs</view>
+    <view class="teamB">
+      <input placeholder-style="color:white" bindinput="getB" placeholder="Player2" value="{{Bname}}" maxlength="10" name="nameB" style="height: 70rpx;line-height: 70rpx" />
+    </view>
+  </view>
+  <view class='teamscore'>
+    <view class="scoreA">{{Ascore}}
+      <view class="tips" animation="{{animationA}}">{{tip_score}}</view>
+    </view>
+    <view class="scoreB">{{Bscore}}
+      <view class="tips" animation="{{animationB}}">{{tip_score}}</view>
+    </view>
+  </view>
+  <view class="scoreboard">
+    <view class="scoretitle">
+      <view class="name">NAME</view>
+      <view class="match-set">MATCH</view>
+      <view class="match-set">SET1</view>
+      <view class="match-set">SET2</view>
+      <view class="match-set">SET3</view>
+    </view>
+    <view class="playerone">
+      <view class="name">{{Aname}}</view>
+      <view class="match-set">{{Amatch}}</view>
+      <view class="match-set">{{Aset1}}</view>
+      <view class="match-set">{{Aset2}}</view>
+      <view class="match-set">{{Aset3}}</view>
+    </view>
+    <view class="playertwo">
+      <view class="name">{{Bname}}</view>
+      <view class="match-set">{{Bmatch}}</view>
+      <view class="match-set">{{Bset1}}</view>
+      <view class="match-set">{{Bset2}}</view>
+      <view class="match-set">{{Bset3}}</view>
+    </view>
+  </view>
+  <view class="matchdetail">
+    <view class="matchdetail-socre" >
+      <block wx:for="{{ScoreDetail}}">
+        <view class="matchdetail-A" wx:if="{{index%2==0}}">{{item}}</view>
+        <view class="matchdetail-B" wx:if="{{index%2!=0}}">{{item}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="control">
+    <view class="control-area">
+      <view class="addscore">
+        <view class="add" bindtap='addscoreA' data-score='1' style='background:#011935'>+</view>
+        <view class="add" bindtap='addscoreB' data-score='1' style='background:#F01B2D'>+</view>
+      </view>
+      <view class="reducescore">长按+减少分数</view>
+    </view>
+  </view>
+  <!--view class="history">
+    记录
+  </view-->
+</view>
