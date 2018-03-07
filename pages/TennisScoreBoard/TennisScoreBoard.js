@@ -19,9 +19,17 @@ Page({
    Bmatch:0,
    Aname:'Player1',
    Bname:'Player2',
-   ScoreDetail:[]
+   ScoreDetail:[],
+   TotalMatch:'',
+   Lserver1:'',
+   Lserver2:'',
+   Rserver1:'',
+   Rserver2:'',
+   ServerImage:'http://127.0.0.1/scoreplus/tennis-ball.png',
+   LastServerPosition:''
   },
   addscoreA:function(option) {
+    var that = this
     var addscore = parseInt(option.target.dataset.score)
     var Ascore = this.data.Ascore
     var Bscore = this.data.Bscore
@@ -59,22 +67,27 @@ Page({
       if ((Ascore_new == 7 && Bscore < 6) || (Ascore_new > 7 && Ascore_new-Bscore == 2)) {
         Aset = Aset + 1
         Amatch = Amatch + 1
+      } else {
+        UpdataTieBreak(this, Ascore, Bscore)
       }
       console.log('A win a score in tiebreak')
     } else {
       if (Ascore == '00') {
         Ascore_new = '15'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('A win a score 15 in set')
       }
       if (Ascore == '15') {
         Ascore_new = '30'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('A win a score 30 in set')
       }
       if (Ascore == '30') {
         Ascore_new = '40'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('A win a score 40 in set')
       }
       if (Ascore == '40' && Bscore != '40' && Bscore != 'AD') {
@@ -82,6 +95,7 @@ Page({
         Bscore_new = '00'
         Aset = Aset + 1
         UpdateScore(Aset, Bset)
+        UpdateAfterASet(this, Aset, Bset)
         if (Aset == 6 && Bset < 5) {
           Amatch = Amatch + 1
           console.log('A win a match')
@@ -96,18 +110,21 @@ Page({
         Ascore_new = 'AD'
         console.log('A win a score AD in set')
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
       }
       if (Ascore == '40' && Bscore == 'AD') {
         Ascore_new = '40'
         Bscore_new = '40'
         console.log('A win a score duces in set')
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
       }
       if (Ascore == 'AD') {
         Ascore_new = '00'
         Bscore_new = '00'
         Aset = Aset + 1
         UpdateScore(Aset, Bset)
+        UpdateAfterASet(this, Aset, Bset)
         if (Aset == 6 && Bset < 5) {
           Amatch = Amatch + 1;
         }
@@ -166,21 +183,26 @@ Page({
       if ((Bscore_new == 7 && Ascore < 6) || (Bscore_new > 7 && Bscore_new - Ascore == 2)) {
         Bset = Bset + 1
         Bmatch = Bmatch + 1
+      } else {
+        UpdataTieBreak(this,Ascore,Bscore)
       }
     } else {
       if (Bscore == '00') {
         Bscore_new = '15'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('B win a score 15 in set')
       }
       if (Bscore == '15') {
         Bscore_new = '30'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('B win a score 15 in set')
       }
       if (Bscore == '30') {
         Bscore_new = '40'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('B win a score 15 in set')
       }
       if (Bscore == '40' && Ascore != '40' && Ascore != 'AD') {
@@ -188,6 +210,7 @@ Page({
         Bscore_new = '00'
         Bset = Bset + 1
         UpdateScore(Aset, Bset)
+        UpdateAfterASet(this, Aset, Bset)
         console.log('B win a set')
         if (Bset == 6 && Aset < 5) {
           Bmatch = Bmatch + 1;
@@ -199,12 +222,14 @@ Page({
       if (Bscore == '40' && Ascore == '40') {
         Bscore_new = 'AD'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('B win a score AD in set')
       }
       if (Bscore == '40' && Ascore == 'AD') {
         Ascore_new = '40'
         Bscore_new = '40'
         UpdateScore(Ascore_new, Bscore_new)
+        UpdateServer(this)
         console.log('B win a score duces in set')
       }
       if (Bscore == 'AD') {
@@ -212,6 +237,7 @@ Page({
         Bscore_new = '00'
         Bset = Bset + 1
         UpdateScore(Aset, Bset)
+        UpdateAfterASet(this, Aset, Bset)
         console.log('B win a set')
         if (Bset == 6 && Aset < 5) {
           Bmatch = Bmatch + 1;
@@ -273,6 +299,45 @@ Page({
       key: 'MatchDetail',
       data: MatchDetail,
     })
+    this.setData({
+      Aname:options.AName,
+      Bname:options.BName,
+      L:options.L,
+      S:options.S
+    })
+    if (options.L == 'A') {
+      if (options.S == 'A') {
+        this.setData({
+          Lserver2: this.data.ServerImage,
+          LastServerPosition:1
+        })
+      } else {
+        this.setData({
+          Rserver1: this.data.ServerImage,
+          LastServerPosition:3
+        })
+      }
+      this.setData({
+        Lname: options.AName,
+        Rname: options.BName
+      })
+    } else {
+      if (options.S == 'A') {
+        this.setData({
+          Rserver1: this.data.ServerImage,
+          LastServerPosition: 3
+        })
+      } else {
+        this.setData({
+          Lserver2: this.data.ServerImage,
+          LastServerPosition: 1
+        })
+      }
+      this.setData({
+        Lname: options.BName,
+        Rname: options.AName
+      })
+    }
     if(wx.getStorageSync('ScoreBoard')){
       wx.showModal({
         title:'提示',
@@ -378,6 +443,117 @@ function UpdateScore(Ascore,Bscore) {
   var MatchDetail = wx.getStorageSync('MatchDetail')
   var socre = [Ascore, Bscore]
   MatchDetail.push(socre)
-  //MatchDetail.push(Bscore)
   wx.setStorageSync('MatchDetail', MatchDetail)
+}
+
+function UpdateServer(that) {
+  if (that.data.LastServerPosition == 1) {
+    that.setData({
+      LastServerPosition:2,
+      Lserver2: '',
+      Lserver1: that.data.ServerImage
+    })
+    console.log('server change')
+  }
+  else if (that.data.LastServerPosition == 2) {
+    that.setData({
+      LastServerPosition: 1,
+      Lserver1: '',
+      Lserver2: that.data.ServerImage
+    })
+  }
+  else if (that.data.LastServerPosition == 3) {
+    that.setData({
+      LastServerPosition: 4,
+      Rserver1: '',
+      Rserver2: that.data.ServerImage
+    })
+  }
+  else if (that.data.LastServerPosition == 4) {
+    that.setData({
+      LastServerPosition: 3,
+      Rserver2: '',
+      Rserver1: that.data.ServerImage
+    })
+  }
+}
+
+function UpdateAfterASet(that,Aset,Bset) {
+  if (( Aset + Bset + 1 ) % 2 == 0) {
+    var temp_name = that.data.Lname
+    that.setData({
+      Lname: that.data.Rname,
+      Rname: temp_name,
+    })
+    if (that.data.LastServerPosition <3) {
+      that.setData ({
+        LastServerPosition: 1,
+        Lserver1: '',
+        Lserver2: that.data.ServerImage
+      })
+    } else {
+      that.setData({
+        LastServerPosition: 3,
+        Rserver2: '',
+        Rserver1: that.data.ServerImage
+      })
+    }
+  }
+  if ((Aset + Bset + 1) % 2 != 0) {
+    if (that.data.LastServerPosition < 3) {
+      that.setData({
+        LastServerPosition: 3,
+        Lserver1: '',
+        Lserver2: '',
+        Rserver2: '',
+        Rserver1: that.data.ServerImage
+      })
+    } else {
+      that.setData({
+        LastServerPosition: 1,
+        Rserver1: '',
+        Rserver2: '',
+        Lserver1: '',
+        Lserver2: that.data.ServerImage
+      })
+    }
+  }
+}
+
+function UpdataTieBreak (that, Ascore, Bscore) {
+  if ((Ascore + Bscore +1) % 2 == 0) {
+    if (that.data.LastServerPosition < 3) {
+      that.setData({
+        LastServerPosition: 3,
+        Lserver1: '',
+        Lserver2: '',
+        Rserver2: '',
+        Rserver1: that.data.ServerImage
+      })
+    } else {
+      that.setData({
+        LastServerPosition: 1,
+        Rserver1: '',
+        Rserver2: '',
+        Lserver1: '',
+        Lserver2: that.data.ServerImage
+      })
+    }
+  }
+  if ((Ascore + Bscore + 1) % 2 != 0) {
+    if (that.data.LastServerPosition < 3) {
+      that.setData({
+        LastServerPosition: 1,
+        Lserver1: '',
+        Lserver2: that.data.ServerImage
+      })
+    } else {
+      that.setData({
+        LastServerPosition: 3,
+        Rserver2: '',
+        Rserver1: that.data.ServerImage
+      })
+    }
+  }
+
 }

@@ -31,7 +31,7 @@
 					"id": 0,
 					"name": "tennis",
 					"pathName": "pages/TennisScoreBoard/TennisScoreBoard",
-					"query": "L=A&S=A&AName=alex&BName=bob"
+					"query": "L=B&S=A&AName=alex&BName=bob"
 				},
 				{
 					"id": -1,

@@ -1,19 +1,29 @@
 <view class="contain">
   <view class="teamname">
-    <view class="teamA"> 
-      <input placeholder-style="color:white" bindinput="getA" placeholder="Player1" value="{{Aname}}" maxlength="10" name="nameA" style="height: 70rpx;line-height: 70rpx"/>
+    <view class="teamA">
+      {{Lname}} 
     </view>
     <view class="vs">Vs</view>
     <view class="teamB">
-      <input placeholder-style="color:white" bindinput="getB" placeholder="Player2" value="{{Bname}}" maxlength="10" name="nameB" style="height: 70rpx;line-height: 70rpx" />
+      {{Rname}}
     </view>
   </view>
   <view class='teamscore'>
-    <view class="scoreA">{{Ascore}}
-      <view class="tips" animation="{{animationA}}">{{tip_score}}</view>
-    </view>
-    <view class="scoreB">{{Bscore}}
-      <view class="tips" animation="{{animationB}}">{{tip_score}}</view>
+    <view class="teamscore-court">
+      <view class="teamscore-server">
+        <view class="teamscore-server-second" style='background: url({{Lserver1}}) no-repeat center;  background-size: 80%'></view>
+        <view class="teamscore-server-first" style='background: url({{Lserver2}}) no-repeat center;  background-size: 80%'></view>
+      </view>
+      <view class="scoreA">{{Ascore}}
+        <view class="tips" animation="{{animationA}}">{{tip_score}}</view>
+      </view>
+      <view class="scoreB">{{Bscore}}
+        <view class="tips" animation="{{animationB}}">{{tip_score}}</view>
+      </view>
+      <view class="teamscore-server">
+        <view class="teamscore-server-second" style='background: url({{Rserver1}}) no-repeat center;  background-size: 80%'></view>
+        <view class="teamscore-server-first" style='background: url({{Rserver2}}) no-repeat center;  background-size: 80%'></view>
+      </view>
     </view>
   </view>
   <view class="scoreboard">
@@ -41,14 +51,14 @@
   </view>
   <view class="matchdetail">
     <block wx:for="{{ScoreDetail}}" wx:key="{{index}}">
-      <view class="matchdetail-socre" wx:if="{{item[0]==0||item[0]==1||item[0]==2||item[0]==3||item[0]==4||item[0]==5||item[0]==6||item[0]==7||item[0]==8||item[0]==9||item[0]==10}}" style='font-size:35rpx;color:#EAFA11'>
+      <view class="matchdetail-socre" wx:if="{{item[0]===0||item[0]==1||item[0]==2||item[0]==3||item[0]==4||item[0]==5||item[0]==6||item[0]==7||item[0]==8||item[0]==9||item[0]==10}}" style='font-size:35rpx;color:#EAFA11'>
         <view class="matchdetail-A">{{item[0]}}</view>
         <view class="matchdetail-B">{{item[1]}}</view>
       </view>
       <view class="matchdetail-socre" wx:else>
         <view class="matchdetail-A">{{item[0]}}</view>
         <view class="matchdetail-B">{{item[1]}}</view>
-      </view>
+      </view>  
     </block>
   </view>
   <view class="control">
@@ -60,7 +70,4 @@
       <view class="reducescore">长按+减少分数</view>
     </view>
   </view>
-  <!--view class="history">
-    记录
-  </view-->
 </view>
