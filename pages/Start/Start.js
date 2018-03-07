@@ -13,7 +13,9 @@ Page({
     Uid:'',
     serverflag:false,
     ChooseSideFlag: true,
-    ChooseServerFlag: true
+    ChooseServerFlag: true,
+    L:'',
+    S:''
   },
   getA: function (e) {
     this.setData({
@@ -35,12 +37,14 @@ Page({
     if (e.currentTarget.dataset.name   == 'A') {
       this.setData({
         Lplayer: this.data.AName,
-        Rplayer: this.data.BName
+        Rplayer: this.data.BName,
+        L: 'A'
       })
     } else {
       this.setData({
         Lplayer: this.data.BName,
-        Rplayer: this.data.AName
+        Rplayer: this.data.AName,
+        L: 'B'
       })
     }
     this.setData({
@@ -57,12 +61,14 @@ Page({
     if (e.currentTarget.dataset.name == 'A') {
       this.setData({
         serverflag:false,
-        ServerPlayer:this.data.AName
+        ServerPlayer:this.data.AName,
+        S: 'A'
       })
     } else {
       this.setData({
         serverflag: true,
-        ServerPlayer: this.data.BName
+        ServerPlayer: this.data.BName,
+        S: 'B'
       })
     }
     this.setData({
@@ -71,15 +77,23 @@ Page({
   },
   formSubmit: function (e) {
     var that = this;
-    this.setData({
-      toolflag: false,
-    })
-    wx.showToast({
-      title: '正在创建比赛……',
-      icon: 'loading',
-      duration: 2000,
-      mask: true
-    })
+    if (this.data.AName == 'Player1' || this.data.BName == 'Player2') {
+      wx.showModal({
+        title: '提示',
+        content: '未输入运动员名称',
+        showCancel: false
+      })
+    } else if (this.data.L == '' || this.data.S == '') {
+      wx.showModal({
+        title: '提示',
+        content: '未进行挑边',
+        showCancel: false
+      })
+    } else {
+      wx.navigateTo({
+        url: '../TennisScoreBoard/TennisScoreBoard?L='+that.data.L+'&S='+that.data.S+'&AName='+that.data.AName+'&BName='+that.data.BName,
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载

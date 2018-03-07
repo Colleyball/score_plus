@@ -83,7 +83,6 @@ page,.page {
   height:100%;
   display:flex;
   flex-direction:row;
-  border:1rpx solid black
 }
 
 .left-server {
@@ -108,7 +107,8 @@ page,.page {
   height:100%;
   display:flex;
   flex-direction:column;
-  border-left: 1rpx solid black
+  border-left: 1rpx solid black;
+  border-right: 1rpx solid black
 }
 
 .right-frontcourt {
@@ -148,6 +148,7 @@ page,.page {
  border: 2px solid rgba(0, 0, 0, 0.2);
  border-radius: 0px;
  margin-top: 15px;
+ margin-bottom: 30rpx;
  width:680rpx;
  height:100rpx;
  margin-left: 35rpx;
